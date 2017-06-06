@@ -41,8 +41,8 @@ class MainLayout(BoxLayout):
         self.imagem_core = None
         self.imagem_core_secundaria = None
         self.widgets_dinamicos = []
-        self.carregar_imagem(u'imagens/darth_vader.jpg')
-        self.carregar_imagem_secundaria(u'imagens/darth_vader.jpg')
+        self.carregar_imagem(u'imagens/dirty.png')
+        self.carregar_imagem_secundaria(u'imagens/dirty.png')
 
     def recarregar_imagem(self):
         """
