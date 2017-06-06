@@ -1,0 +1,188 @@
+<MainLayout>:
+    imagem: id_imagem
+    imagem_secundaria: id_imagem_2
+    orientation: 'vertical'
+    BoxLayout:
+        size_hint_y: None
+        height: 30
+        Button:
+            text: 'Imagem'
+            on_release: root.menu_imagem.open(self)
+        Button:
+            text: 'Filtros'
+            on_release: root.menu_filtros.open(self)
+        Button:
+            text: 'Lógicos'
+            on_release: root.menu_operadores_logicos.open(self)
+        Button:
+            text: 'Aritméticos'
+            on_release: root.menu_operadores_aritmeticos.open(self)
+    BoxLayout:
+        Image:
+            id: id_imagem
+            size: root.size
+
+        Image:
+            id: id_imagem_2
+            size: root.size
+
+<MenuImagemDropDown>:
+    Button:
+        text: 'Carregar'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('carregar_imagem')
+    Button:
+        text: 'Carregar Imagem Secundaria'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('carregar_imagem_secundaria')
+    Button:
+        text: 'Salvar'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('salvar_imagem')
+    Button:
+        text: 'Limpar'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('limpar', app)
+    Button:
+        text: 'Escala de Cinza'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('mostrar_imagem_cinza', app)
+    Button:
+        text: 'Histograma'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('mostrar_histograma', app)
+    Button:
+        text: 'Equalizar'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('mostrar_imagem_equalizada', app)
+
+<MenuFiltros>:
+    Button:
+        text: 'Correlação'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_filtro', app, 'correlacao')
+    Button:
+        text: 'Convolução'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_filtro', app, 'convolucao')
+    Button:
+        text: 'Passa-Alta'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_filtro', app, 'passa_alta')
+    Button:
+        text: 'Mediana'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_filtro', app, 'mediana')
+    Button:
+        text: 'Moda'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_filtro', app, 'moda')
+
+    Button:
+        text: 'Operador Robert'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_filtro', app, 'robert_convolucao')
+
+# TODO: SOMA, SUBTRAÇÃO, OPERAÇÃO LÓGICA AND/OR/XOR
+<MenuOperadoresAritmeticos>:
+    Button:
+        text: 'Soma'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_operador', app, 'soma')
+    Button:
+        text: 'Subtração'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_operador', app, 'subtração')
+
+<MenuOperadoresLogicos>:
+    Button:
+        text: 'AND'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_operador', app, 'AND')
+    Button:
+        text: 'OR'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_operador', app, 'OR')
+    Button:
+        text: 'XOR'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_operador', app, 'XOR')
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechooser
+            path: './imagens'
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancelar"
+                on_release: root.fechar()
+            Button:
+                text: "Carregar"
+                on_release: root.carregar(app, filechooser.selection)
+
+<LoadDialogSec>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechooser
+            path: './imagens'
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancelar"
+                on_release: root.fechar()
+            Button:
+                text: "Carregar"
+                on_release: root.carregar(app, filechooser.selection)
+
+<SaveDialog>:
+    text_input: text_input
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            path: './imagens'
+            on_selection: text_input.text = self.selection and self.selection[0] or ''
+        TextInput:
+            id: text_input
+            size_hint_y: None
+            height: 30
+            multiline: False
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancelar"
+                on_release: root.fechar()
+            Button:
+                text: "Salvar"
+                on_release: root.salvar(app, filechooser.path, text_input.text)
