@@ -41,8 +41,8 @@ class MainLayout(BoxLayout):
         self.imagem_core = None
         self.imagem_core_secundaria = None
         self.widgets_dinamicos = []
-        self.carregar_imagem(u'imagens/dirty.png')
-        self.carregar_imagem_secundaria(u'imagens/dirty.png')
+        self.carregar_imagem(u'imagens/circle.png')
+        self.carregar_imagem_secundaria(u'imagens/square.png')
 
     def recarregar_imagem(self):
         """
@@ -122,6 +122,10 @@ class MainLayout(BoxLayout):
         self.imagem_core.aplicar_filtro(nome_filtro=nome_filtro)
         self.recarregar_imagem()
 
+    def aplicar_operador_logico(self, nome_operador):
+        self.imagem_core.aplicar_logico(nome_operador, imagem_secundaria=self.imagem_core_secundaria)
+        # self.imagem_core.operador_and(self.imagem_core_secundaria)
+        self.recarregar_imagem()
 
 class MainApp(App):
     """

@@ -114,17 +114,17 @@
         text: 'AND'
         size_hint_y: None
         height: 44
-        on_release: root.select('aplicar_operador', app, 'AND')
+        on_release: root.select('aplicar_operador', app, 'operador_and')
     Button:
         text: 'OR'
         size_hint_y: None
         height: 44
-        on_release: root.select('aplicar_operador', app, 'OR')
+        on_release: root.select('aplicar_operador', app, 'operador_or')
     Button:
         text: 'XOR'
         size_hint_y: None
         height: 44
-        on_release: root.select('aplicar_operador', app, 'XOR')
+        on_release: root.select('aplicar_operador', app, 'operador_xor')
 
 <LoadDialog>:
     BoxLayout:

@@ -133,6 +133,70 @@ class Imagem(object):
                 getattr(filtro, nome_filtro)(*args, **kwargs)
                 break
 
+    def aplicar_logico(self, operador, *args, **kwargs):
+        """
+        Aplica um filtro na imagem.
+        """
+        if hasattr(self, operador):
+            getattr(self, operador)(*args, **kwargs)
+
+
+    def operador_and(self, imagem_secundaria):
+
+        x_final=self.imagem.width
+        y_final=self.imagem.height
+
+        x_final_2 = imagem_secundaria.imagem.width
+        y_final_2 = imagem_secundaria.imagem.height
+
+        generator = self._get_xy(
+            x_final=x_final,
+            y_final=y_final,
+        )
+
+        for x, y in generator:
+
+            if x < x_final_2 and y < y_final_2:
+                pixel_resultante = self.pixels[x, y][0] & imagem_secundaria.pixels[x, y][0]
+                self.pixels[x, y] = (pixel_resultante, pixel_resultante, pixel_resultante)
+
+    def operador_xor(self, imagem_secundaria):
+
+        x_final=self.imagem.width
+        y_final=self.imagem.height
+
+        x_final_2 = imagem_secundaria.imagem.width
+        y_final_2 = imagem_secundaria.imagem.height
+
+        generator = self._get_xy(
+            x_final=x_final,
+            y_final=y_final,
+        )
+
+        for x, y in generator:
+
+            if x < x_final_2 and y < y_final_2:
+                pixel_resultante = self.pixels[x, y][0] ^ imagem_secundaria.pixels[x, y][0]
+                self.pixels[x, y] = (pixel_resultante, pixel_resultante, pixel_resultante)
+
+    def operador_or(self, imagem_secundaria):
+
+        x_final=self.imagem.width
+        y_final=self.imagem.height
+
+        x_final_2 = imagem_secundaria.imagem.width
+        y_final_2 = imagem_secundaria.imagem.height
+
+        generator = self._get_xy(
+            x_final=x_final,
+            y_final=y_final,
+        )
+
+        for x, y in generator:
+
+            if x < x_final_2 and y < y_final_2:
+                pixel_resultante = self.pixels[x, y][0] | imagem_secundaria.pixels[x, y][0]
+                self.pixels[x, y] = (pixel_resultante, pixel_resultante, pixel_resultante)
 
 class Filtros(object):
     """

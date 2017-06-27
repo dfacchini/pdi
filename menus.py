@@ -95,4 +95,4 @@ class MenuOperadoresLogicos(Menu):
         """
         Executa a chamada para o operador escolhido
         """
-        app.main_layout.aplicar_operador_logico(nome_operador=nome_operador)
+        app.main_layout.aplicar_operador_logico(nome_operador)
