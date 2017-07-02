@@ -15,12 +15,7 @@ class Menu(DropDown):
         getattr(self, opcao)(*args, **kwargs)
         self.dismiss()
 
-
-class MenuImagemDropDown(Menu):
-    """
-    Menu de Imagem.
-    """
-
+class MenuArquivoDropDown(Menu):
     def carregar_imagem(self):
         """
         Abre o popup para a escolha de uma nova imagem.
@@ -38,7 +33,13 @@ class MenuImagemDropDown(Menu):
         """
         janela = SaveDialog()
         janela.popup.open()
+    def fechar(self):
+        App.get_running_app().stop()
 
+class MenuImagemDropDown(Menu):
+    """
+    Menu de Imagem.
+    """
     def limpar(self, app):
         """
         Limpa a tela.

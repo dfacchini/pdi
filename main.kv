@@ -6,7 +6,10 @@
         size_hint_y: None
         height: 30
         Button:
-            text: 'Imagem'
+            text: 'Arquivo'
+            on_release: root.menu_arquivo.open(self)
+        Button:
+            text: 'Realce'
             on_release: root.menu_imagem.open(self)
         Button:
             text: 'Filtros'
@@ -26,14 +29,14 @@
             id: id_imagem_2
             size: root.size
 
-<MenuImagemDropDown>:
+<MenuArquivoDropDown>:
     Button:
         text: 'Carregar'
         size_hint_y: None
         height: 44
         on_release: root.select('carregar_imagem')
     Button:
-        text: 'Carregar Imagem Secundaria'
+        text: 'Carregar Secundaria'
         size_hint_y: None
         height: 44
         on_release: root.select('carregar_imagem_secundaria')
@@ -42,6 +45,13 @@
         size_hint_y: None
         height: 44
         on_release: root.select('salvar_imagem')
+    Button:
+        text: 'Fechar'
+        size_hint_y: None
+        height: 44
+        on_press: app.stop()
+
+<MenuImagemDropDown>:
     Button:
         text: 'Limpar'
         size_hint_y: None
@@ -133,7 +143,7 @@
         orientation: "vertical"
         FileChooserIconView:
             id: filechooser
-            path: './imagens'
+            path: './'
         BoxLayout:
             size_hint_y: None
             height: 30
@@ -148,10 +158,10 @@
     BoxLayout:
         size: root.size
         pos: root.pos
-        orientation: "vertical"
+        orientation: "vertical"'imagens/'
         FileChooserIconView:
             id: filechooser
-            path: './imagens'
+            path: './'
         BoxLayout:
             size_hint_y: None
             height: 30
@@ -170,7 +180,7 @@
         orientation: "vertical"
         FileChooserListView:
             id: filechooser
-            path: './imagens'
+            path: './'
             on_selection: text_input.text = self.selection and self.selection[0] or ''
         TextInput:
             id: text_input

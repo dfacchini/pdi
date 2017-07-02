@@ -11,6 +11,7 @@ from kivy.properties import ObjectProperty
 from core import Imagem
 from menus import (
     MenuImagemDropDown,
+    MenuArquivoDropDown,
     MenuFiltros,
     MenuOperadoresAritmeticos,
     MenuOperadoresLogicos
@@ -32,6 +33,7 @@ class MainLayout(BoxLayout):
         """
         super(MainLayout, self).__init__(*args, **kwargs)
         self.menu_imagem = MenuImagemDropDown()
+        self.menu_arquivo = MenuArquivoDropDown()
 
         self.menu_filtros = MenuFiltros()
 
