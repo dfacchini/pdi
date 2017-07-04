@@ -15,11 +15,14 @@
             text: 'Filtros'
             on_release: root.menu_filtros.open(self)
         Button:
+            text: 'Bordas'
+            on_release: root.menu_bordas.open(self)
+        Button:
             text: 'Lógicos'
             on_release: root.menu_operadores_logicos.open(self)
-        Button:
-            text: 'Aritméticos'
-            on_release: root.menu_operadores_aritmeticos.open(self)
+        # Button:
+        #     text: 'Aritméticos'
+        #     on_release: root.menu_operadores_aritmeticos.open(self)
     BoxLayout:
         Image:
             id: id_imagem
@@ -28,6 +31,23 @@
         Image:
             id: id_imagem_2
             size: root.size
+
+<MenuBordas>:
+    Button:
+        text: 'Prewitt'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_filtro', app, 'prewitt_convolucao')
+    Button:
+        text: 'Sobel'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_filtro', app, 'sobel_convolucao')
+    Button:
+        text: 'Roberts Cross'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_filtro', app, 'robert_convolucao')
 
 <MenuArquivoDropDown>:
     Button:
@@ -74,37 +94,54 @@
         on_release: root.select('mostrar_imagem_equalizada', app)
 
 <MenuFiltros>:
+    # Button:
+    #     text: 'Correlação'
+    #     size_hint_y: None
+    #     height: 44
+    #     on_release: root.select('aplicar_filtro', app, 'correlacao')
+    # Button:
+    #     text: 'Convolução'
+    #     size_hint_y: None
+    #     height: 44
+    #     on_release: root.select('aplicar_filtro', app, 'convolucao')
+
+
+    # Button:
+    #     text: 'Passa-Alta'
+    #     size_hint_y: None
+    #     height: 44
+    #     on_release: root.select('aplicar_filtro', app, 'passa_alta')
     Button:
-        text: 'Correlação'
-        size_hint_y: None
-        height: 44
-        on_release: root.select('aplicar_filtro', app, 'correlacao')
-    Button:
-        text: 'Convolução'
+        text: 'Média'
         size_hint_y: None
         height: 44
         on_release: root.select('aplicar_filtro', app, 'convolucao')
     Button:
-        text: 'Passa-Alta'
+        text: 'Média Harm.'
         size_hint_y: None
         height: 44
-        on_release: root.select('aplicar_filtro', app, 'passa_alta')
+        on_release: root.select('aplicar_filtro', app, 'media_h')
+
     Button:
-        text: 'Mediana'
+        text: 'Mediana 5*5'
         size_hint_y: None
         height: 44
         on_release: root.select('aplicar_filtro', app, 'mediana')
     Button:
-        text: 'Moda'
+        text: 'Mediana 7*7'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('aplicar_filtro', app, 'mediana7')
+    Button:
+        text: 'Moda 5*5'
         size_hint_y: None
         height: 44
         on_release: root.select('aplicar_filtro', app, 'moda')
-
     Button:
-        text: 'Operador Robert'
+        text: 'Moda 7*7'
         size_hint_y: None
         height: 44
-        on_release: root.select('aplicar_filtro', app, 'robert_convolucao')
+        on_release: root.select('aplicar_filtro', app, 'moda7')
 
 # TODO: SOMA, SUBTRAÇÃO, OPERAÇÃO LÓGICA AND/OR/XOR
 <MenuOperadoresAritmeticos>:
@@ -158,7 +195,7 @@
     BoxLayout:
         size: root.size
         pos: root.pos
-        orientation: "vertical"'imagens/'
+        orientation: "vertical"
         FileChooserIconView:
             id: filechooser
             path: './'

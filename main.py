@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 import kivy
-kivy.require('1.9.0') # replace with your current kivy version !
+# kivy.require('1.9.0') # replace with your current kivy version !
 
 from kivy.app import App
 from kivy.uix.image import Image
@@ -14,7 +14,8 @@ from menus import (
     MenuArquivoDropDown,
     MenuFiltros,
     MenuOperadoresAritmeticos,
-    MenuOperadoresLogicos
+    MenuOperadoresLogicos,
+    MenuBordas
 )
 
 
@@ -36,6 +37,8 @@ class MainLayout(BoxLayout):
         self.menu_arquivo = MenuArquivoDropDown()
 
         self.menu_filtros = MenuFiltros()
+
+        self.menu_bordas = MenuBordas()
 
         self.menu_operadores_aritmeticos = MenuOperadoresAritmeticos()
         self.menu_operadores_logicos = MenuOperadoresLogicos()

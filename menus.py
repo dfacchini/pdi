@@ -77,6 +77,18 @@ class MenuFiltros(Menu):
         app.main_layout.aplicar_filtro(nome_filtro=nome_filtro)
 
 
+class MenuBordas(Menu):
+    """
+    Menu dos filtros.
+    """
+
+    def aplicar_filtro(self, app, nome_filtro):
+        """
+        Executa a chamada para o filtro escolhido
+        """
+        app.main_layout.aplicar_filtro(nome_filtro=nome_filtro)
+
+
 class MenuOperadoresAritmeticos(Menu):
     """
     Menu dos operadores aritméticos
