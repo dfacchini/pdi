@@ -206,19 +206,17 @@ class Filtros(object):
     """
 
     # Filtros Passa-Baixas / Correlação, Convolução
-    matriz_filtro = [
-        [1/25, 1/25, 1/25, 1/25, 1/25],
-        [1/25, 1/25, 1/25, 1/25, 1/25],
-        [1/25, 1/25, 1/25, 1/25, 1/25],
-        [1/25, 1/25, 1/25, 1/25, 1/25],
-        [1/25, 1/25, 1/25, 1/25, 1/25]
-    ]
-
     # matriz_filtro = [
-    #     [1.0/10, .5/10, 1.5/10],
-    #     [1.0/10, 0.5/10, 1.5/10],
-    #     [0.5/10, 1.5/10, 1.5/10],
+    #     [1.5/18, 2.0/18, 1.5/18],
+    #     [2.0/18, 4.0/18, 2.0/18],
+    #     [1.5/18, 2.0/18, 1.5/18],
     # ]
+
+    matriz_filtro = [
+        [1.0/10, .5/10, 1.5/10],
+        [1.0/10, 0.5/10, 1.5/10],
+        [0.5/10, 1.5/10, 1.5/10],
+    ]
 
     # matriz_filtro = [
     #     [1.0/94, 2.0/94, 4.0/94, 2.0/94, 1.0/94],
@@ -238,7 +236,7 @@ class Filtros(object):
         Aplica o filtro de correlação.
         """
         # Limita a aplicação da técnica para pontos que possuem vizinhos.
-        qtd_linhas_espaco = len(self.matriz_filtro) / 2
+        qtd_linhas_espaco = len(self.matriz_filtro) - 2
         generator = self.imagem._get_xy(
             x_inicio=qtd_linhas_espaco,
             y_inicio=qtd_linhas_espaco,
@@ -246,15 +244,16 @@ class Filtros(object):
             y_final=self.imagem.imagem.height - qtd_linhas_espaco,
         )
 
-        # j = (0, 1, 2)
-        # if rotacionar_matriz_180:
-        #     j = (2, 1, 0)
+        j = (0, 1, 2)
+        if rotacionar_matriz_180:
+            j = (2, 1, 0)
 
         for x, y in generator:
             soma = 0
-            for i in range(0, qtd_linhas_espaco):
-                for j in range(0, qtd_linhas_espaco):
-                    soma += self.imagem.pixels[x-qtd_linhas_espaco+i, y-qtd_linhas_espaco+j][0] * self.matriz_filtro[i][j]
+            for i in range(0, 3):
+                soma += self.imagem.pixels[x-1+i, y-1][0] * self.matriz_filtro[i][j[0]]
+                soma += self.imagem.pixels[x-1+i, y][0] * self.matriz_filtro[i][j[1]]
+                soma += self.imagem.pixels[x-1+i, y+1][0] * self.matriz_filtro[i][j[2]]
             soma = int(soma)
             self.imagem.pixels[x, y] = (soma, soma, soma)
 
@@ -433,9 +432,9 @@ class Moda(Filtros):
 
         # Limita a aplicação da técnica para pontos que possuem vizinhos.
         # qtd_linhas_espaco = len(self.matriz_filtro) - 2
-        qtd_linhas_espaco = 3
-        x_final=self.imagem.imagem.width - qtd_linhas_espaco
-        y_final=self.imagem.imagem.height - qtd_linhas_espaco
+        qtd_linhas_espaco = 7
+        x_final=self.imagem.imagem.width - qtd_linhas_espaco/2
+        y_final=self.imagem.imagem.height - qtd_linhas_espaco/2
 
         generator = self.imagem._get_xy(
             x_inicio=qtd_linhas_espaco,
@@ -563,10 +562,10 @@ class Mediana(Filtros):
 
         # Limita a aplicação da técnica para pontos que possuem vizinhos.
         # qtd_linhas_espaco = len(self.matriz_filtro) - 2
-        qtd_linhas_espaco = 3
+        qtd_linhas_espaco = 7
 
-        x_final=self.imagem.imagem.width - qtd_linhas_espaco
-        y_final=self.imagem.imagem.height - qtd_linhas_espaco
+        x_final=self.imagem.imagem.width - qtd_linhas_espaco/2
+        y_final=self.imagem.imagem.height - qtd_linhas_espaco/2
 
         generator = self.imagem._get_xy(
             x_inicio=qtd_linhas_espaco,
@@ -583,8 +582,9 @@ class Mediana(Filtros):
                 for j in range(0, qtd_linhas_espaco):
                     soma.append(self.imagem.pixels[x-qtd_linhas_espaco+i, y-qtd_linhas_espaco+j][0])
 
+
             soma.sort()
-            mediana = soma[len(soma)/2]
+            mediana = soma[qtd_linhas_espaco**2/2]
             matriz_aux[x][y] = (mediana, mediana, mediana)
 
 
